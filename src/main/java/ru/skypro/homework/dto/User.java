@@ -9,12 +9,12 @@ public class User {
     private String email;
     private String password;
     private String phone;
-    private String userStatus;
+    private Integer userStatus;
 
     public User() {
     }
 
-    public User(Long id, String username, String firstName, String lastName, String email, String password, String phone, String userStatus) {
+    public User(Long id, String username, String firstName, String lastName, String email, String password, String phone, Integer userStatus) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;

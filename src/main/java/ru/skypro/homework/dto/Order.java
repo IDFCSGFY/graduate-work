@@ -4,7 +4,7 @@ public class Order {
 
     private Long id;
     private Long petId;
-    private Long quantity;
+    private Integer quantity;
     private String shipDate;
     private OrderStatus status;
     private Boolean complete;
@@ -12,7 +12,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(Long id, Long petId, Long quantity, String shipDate, OrderStatus status, Boolean complete) {
+    public Order(Long id, Long petId, Integer quantity, String shipDate, OrderStatus status, Boolean complete) {
         this.id = id;
         this.petId = petId;
         this.quantity = quantity;
