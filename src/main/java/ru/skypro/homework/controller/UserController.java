@@ -7,7 +7,7 @@ import ru.skypro.homework.dto.User;
 import java.util.List;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 
     @PostMapping
@@ -20,27 +20,27 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public ResponseEntity<String> userLogin(@RequestParam String username, @RequestParam String password) {
         return ResponseEntity.ok("Successful operation");
     }
 
-    @GetMapping("logout")
+    @GetMapping("/logout")
     public ResponseEntity<String> userLogout() {
         return ResponseEntity.ok("Successful operation");
     }
 
-    @GetMapping("{username}")
+    @GetMapping("/{username}")
     public ResponseEntity<User> findUserByUsername(@PathVariable String username) {
         return ResponseEntity.ok(new User());
     }
 
-    @PutMapping("{username}")
+    @PutMapping("/{username}")
     public ResponseEntity<String> updateUser(@PathVariable String username, @RequestBody User user) {
         return ResponseEntity.ok("Successful operation");
     }
 
-    @DeleteMapping("{username}")
+    @DeleteMapping("/{username}")
     public ResponseEntity<String> deleteUser(@PathVariable String username) {
         return ResponseEntity.ok("User deleted");
     }

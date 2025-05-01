@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("pet")
+@RequestMapping("/pet")
 public class PetController {
 
     @PutMapping
@@ -24,32 +24,32 @@ public class PetController {
         return ResponseEntity.ok(pet);
     }
 
-    @GetMapping("findByStatus")
+    @GetMapping("/findByStatus")
     public ResponseEntity<List<Pet>> findPetsByStatuses(@RequestParam String status) {
         return ResponseEntity.ok(new ArrayList<>(List.of(new Pet())));
     }
 
-    @GetMapping("findByTags")
+    @GetMapping("/findByTags")
     public ResponseEntity<List<Pet>> findPetsByTags(@RequestParam String[] tags) {
         return ResponseEntity.ok(new ArrayList<>(List.of(new Pet())));
     }
 
-    @GetMapping("{petId}")
+    @GetMapping("/{petId}")
     public ResponseEntity<Pet> findPetById(@PathVariable Long petId) {
         return ResponseEntity.ok(new Pet());
     }
 
-    @PostMapping("{petId}")
+    @PostMapping("/{petId}")
     public ResponseEntity<Pet> findPetById(@PathVariable Long petId, @RequestParam String petName, @RequestParam String petStatus) {
         return ResponseEntity.ok(new Pet());
     }
 
-    @DeleteMapping("{petId}")
+    @DeleteMapping("/{petId}")
     public ResponseEntity<String> deletePetById(@PathVariable Long petId) {
         return ResponseEntity.ok("Pet deleted");
     }
 
-    @PostMapping(value = "{petId}/uploadImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/{petId}/uploadImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse> uploadPetImage(@PathVariable Long petId, @RequestParam MultipartFile petImage) {
         return ResponseEntity.ok(new ApiResponse());
     }

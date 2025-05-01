@@ -8,25 +8,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("store")
+@RequestMapping("/store")
 public class StoreController {
 
-    @GetMapping("inventory")
+    @GetMapping("/inventory")
     public ResponseEntity<Map<String, Long>> findPetQuantityByStatus() {
         return ResponseEntity.ok(new HashMap<>(Map.of("status", 0L)));
     }
 
-    @PostMapping("order")
+    @PostMapping("/order")
     public ResponseEntity<Order> addOrder(@RequestBody Order order) {
         return ResponseEntity.ok(order);
     }
 
-    @GetMapping("order/{orderId}")
+    @GetMapping("/order/{orderId}")
     public ResponseEntity<Order> findOrderById(@PathVariable Long orderId) {
         return ResponseEntity.ok(new Order());
     }
 
-    @DeleteMapping("order/{orderId}")
+    @DeleteMapping("/order/{orderId}")
     public ResponseEntity<String> deleteOrderById(@PathVariable Long orderId) {
         return ResponseEntity.ok("Order deleted");
     }
