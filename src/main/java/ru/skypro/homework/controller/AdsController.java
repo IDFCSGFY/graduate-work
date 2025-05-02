@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 
+@CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequestMapping("/ads")
 public class AdsController {
