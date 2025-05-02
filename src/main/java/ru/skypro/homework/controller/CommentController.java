@@ -7,24 +7,25 @@ import ru.skypro.homework.dto.Comments;
 import ru.skypro.homework.dto.CreateOrUpdateComment;
 
 @RestController
+@RequestMapping("/ads")
 public class CommentController {
 
-    @GetMapping("ads/{id}/comments")
+    @GetMapping("/{id}/comments")
     public ResponseEntity<Comments> findAllCommentsByAdId(@PathVariable Integer id) {
         return ResponseEntity.ok(new Comments());
     }
 
-    @PostMapping("ads/{id}/comments")
+    @PostMapping("/{id}/comments")
     public ResponseEntity<Comment> createComment(@PathVariable Integer id, @RequestBody CreateOrUpdateComment updateComment) {
         return ResponseEntity.ok(new Comment());
     }
 
-    @DeleteMapping("ads/{adId}/comments/{commentId}")
+    @DeleteMapping("/{adId}/comments/{commentId}")
     public ResponseEntity<Void> deleteCommentById(@PathVariable Integer adId, @PathVariable Integer commentId) {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("ads/{adId}/comments/{commentId}")
+    @PatchMapping("/{adId}/comments/{commentId}")
     public ResponseEntity<Comment> updateComment (@PathVariable Integer adId, @PathVariable Integer commentId) {
         return ResponseEntity.ok(new Comment());
     }
