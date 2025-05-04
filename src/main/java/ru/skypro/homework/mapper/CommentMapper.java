@@ -13,7 +13,7 @@ public interface CommentMapper {
     @Mapping(source = "id", target = "pk")
     @Mapping(source = "author.firstName", target = "authorFirstName")
     @Mapping(source = "author.image", target = "authorImage")
-    @Mapping(source = "createdAt", target = "createdAt")
+    @Mapping(source = "createdAt.epochSecond", target = "createdAt")
     @Mapping(source = "text", target = "text")
     Comment toDto(CommentEntity entity);
 
@@ -23,6 +23,4 @@ public interface CommentMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(source = "text", target = "text")
     CommentEntity fromCreateDto(CreateOrUpdateComment dto);
-
-
 }
