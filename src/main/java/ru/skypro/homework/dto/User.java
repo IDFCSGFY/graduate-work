@@ -1,6 +1,5 @@
 package ru.skypro.homework.dto;
 
-import ru.skypro.homework.dto.Role;
 
 public class User {
 
