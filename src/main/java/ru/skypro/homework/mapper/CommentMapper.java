@@ -13,11 +13,16 @@ public interface CommentMapper {
     @Mapping(source = "id", target = "pk")
     @Mapping(source = "author.firstName", target = "authorFirstName")
     @Mapping(source = "author.image", target = "authorImage")
+    @Mapping(source = "text", target = "text")
+    @Mapping(source = "createdAt", target = "createdAt")
     Comment toDto(CommentEntity entity);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "author", ignore = true)
     @Mapping(target = "ad", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
+    @Mapping(source = "text", target = "text")
     CommentEntity fromCreateDto(CreateOrUpdateComment dto);
+
+
 }
