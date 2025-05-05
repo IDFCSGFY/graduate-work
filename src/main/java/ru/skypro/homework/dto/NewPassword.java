@@ -7,4 +7,12 @@ public class NewPassword {
 
     public NewPassword() {
     }
+
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
 }

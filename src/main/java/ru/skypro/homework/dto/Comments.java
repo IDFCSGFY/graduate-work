@@ -9,4 +9,12 @@ public class Comments {
 
     public Comments() {
     }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public List<Comment> getResults() {
+        return results;
+    }
 }

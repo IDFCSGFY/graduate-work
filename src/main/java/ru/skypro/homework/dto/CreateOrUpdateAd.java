@@ -8,4 +8,16 @@ public class CreateOrUpdateAd {
 
     public CreateOrUpdateAd() {
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
