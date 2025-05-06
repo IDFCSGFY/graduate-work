@@ -2,6 +2,7 @@ package ru.skypro.homework.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.NewPassword;
@@ -14,7 +15,7 @@ import ru.skypro.homework.dto.User;
 public class UserController {
 
     @PostMapping("/set_password")
-    public ResponseEntity<Void> setPassword(@RequestBody NewPassword newPassword) {
+    public ResponseEntity<Void> setPassword(@RequestBody NewPassword newPassword, Authentication authentication) {
         return ResponseEntity.ok().build();
     }
 
