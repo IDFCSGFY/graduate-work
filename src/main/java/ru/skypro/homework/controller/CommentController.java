@@ -26,7 +26,7 @@ public class CommentController {
 
     @PostMapping("/{id}/comments")
     public ResponseEntity<Comment> createComment(Authentication authentication, @PathVariable Integer id, @RequestBody CreateOrUpdateComment updateComment) {
-        return ResponseEntity.ok(service.createComment(authentication,id, updateComment));
+        return ResponseEntity.ok(service.createComment(authentication, id, updateComment));
     }
 
     @DeleteMapping("/{adId}/comments/{commentId}")
@@ -36,7 +36,7 @@ public class CommentController {
     }
 
     @PatchMapping("/{adId}/comments/{commentId}")
-    public ResponseEntity<Comment> updateComment (Authentication authentication, @PathVariable Integer adId, @PathVariable Integer commentId, @RequestBody CreateOrUpdateComment updateComment) {
+    public ResponseEntity<Comment> updateComment(Authentication authentication, @PathVariable Integer adId, @PathVariable Integer commentId, @RequestBody CreateOrUpdateComment updateComment) {
         return ResponseEntity.ok(service.updateCommentById(authentication, commentId, updateComment));
     }
 }

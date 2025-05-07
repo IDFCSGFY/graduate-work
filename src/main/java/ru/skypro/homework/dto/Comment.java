@@ -9,7 +9,8 @@ public class Comment {
     private Integer pk;
     private String text;
 
-    public Comment() {}
+    public Comment() {
+    }
 
     public Integer getAuthor() {
         return author;

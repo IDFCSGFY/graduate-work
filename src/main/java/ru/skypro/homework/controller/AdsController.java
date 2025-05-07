@@ -39,7 +39,7 @@ public class AdsController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteAdById(Authentication authentication, @PathVariable Integer id) {
-        service.deleteAdById(authentication,id);
+        service.deleteAdById(authentication, id);
         return ResponseEntity.status(204).build();
     }
 
