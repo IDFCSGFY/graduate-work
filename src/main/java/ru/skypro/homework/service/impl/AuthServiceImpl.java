@@ -16,7 +16,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final JdbcUserDetailsManager manager;
     private final PasswordEncoder encoder;
-    private UserProfileService profileService;
+    private final UserProfileService profileService;
 
     public AuthServiceImpl(JdbcUserDetailsManager manager,
                            PasswordEncoder passwordEncoder,
