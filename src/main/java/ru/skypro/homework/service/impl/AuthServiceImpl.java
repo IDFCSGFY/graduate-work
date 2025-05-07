@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
+import ru.skypro.homework.dto.NewPassword;
 import ru.skypro.homework.dto.Register;
 import ru.skypro.homework.service.AuthService;
 
@@ -15,7 +16,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final JdbcUserDetailsManager manager;
     private final PasswordEncoder encoder;
-    private final UserProfileService profileService;
+    private UserProfileService profileService;
 
     public AuthServiceImpl(JdbcUserDetailsManager manager,
                            PasswordEncoder passwordEncoder,
