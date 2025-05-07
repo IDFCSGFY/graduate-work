@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/user-changelog.yaml
+  - include:
+      file: db/changelog/changes/ad-changelog.yaml
+  - include:
+      file: db/changelog/changes/comment-changelog.yaml
