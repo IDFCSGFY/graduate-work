@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: liquibase
+      changes:
+        - createTable:
+            tableName: security
+            columns:
+              - column:
+                  name: username
+                  type: varchar(100)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: password
+                  type: varchar(255)
+              - column:
+                  name: enabled
+                  type: boolean

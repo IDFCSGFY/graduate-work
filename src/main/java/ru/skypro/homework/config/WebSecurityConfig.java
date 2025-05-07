@@ -2,14 +2,17 @@ package ru.skypro.homework.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import ru.skypro.homework.service.impl.UserDetailsManagerImpl;
+
+import javax.sql.DataSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -38,18 +41,18 @@ public class WebSecurityConfig {
 //        return new InMemoryUserDetailsManager(user);
 //    }
 
-//    @Bean
-//    public UserDetailsManager userDetailsManager(DataSource dataSource, JdbcTemplate jdbcTemplate) {
-//        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-//        manager.setJdbcTemplate(jdbcTemplate);
-//        manager.setCreateUserSql("insert into security (username, password, enabled) values (?,?,?)");
-//        manager.setDeleteUserSql("delete from security where username = ?");
-//        manager.setUpdateUserSql("update security set password = ?, enabled = ? where username = ?");
-//        manager.setUserExistsSql("select username from security where username = ?");
-//        manager.setChangePasswordSql("update security set password = ? where username = ?");
-//        manager.setUsersByUsernameQuery("select username, password, enabled from security where username = ?");
-//        return manager;
-//    }
+    @Bean
+    public UserDetailsManager userDetailsManager(DataSource dataSource, JdbcTemplate jdbcTemplate) {
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+        manager.setJdbcTemplate(jdbcTemplate);
+        manager.setCreateUserSql("insert into security (username, password, enabled) values (?,?,?)");
+        manager.setDeleteUserSql("delete from security where username = ?");
+        manager.setUpdateUserSql("update security set password = ?, enabled = ? where username = ?");
+        manager.setUserExistsSql("select username from security where username = ?");
+        manager.setChangePasswordSql("update security set password = ? where username = ?");
+        manager.setUsersByUsernameQuery("select username, password, enabled from security where username = ?");
+        return manager;
+    }
 
 //          private String createUserSql = "insert into users (username, password, enabled) values (?,?,?)";
 //          private String deleteUserSql = "delete from users where username = ?";
@@ -71,11 +74,6 @@ public class WebSecurityConfig {
 //    private String deleteGroupMemberSql = "delete from group_members where group_id = ? and username = ?";
 //    private String groupAuthoritiesSql = "select g.id, g.group_name, ga.authority from groups g, group_authorities ga where g.group_name = ? and g.id = ga.group_id ";
 //    private String deleteGroupAuthoritySql = "delete from group_authorities where group_id = ? and authority = ?";
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsManagerImpl();
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

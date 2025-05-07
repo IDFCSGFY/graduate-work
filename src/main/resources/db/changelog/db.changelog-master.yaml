@@ -5,3 +5,9 @@ databaseChangeLog:
       file: db/changelog/changes/ad-changelog.yaml
   - include:
       file: db/changelog/changes/comment-changelog.yaml
+  - include:
+      file: db/changelog/changes/security-changelog.yaml
+  - include:
+      file: db/changelog/changes/authorities-changelog.yaml
+  - include:
+      file: db/changelog/changes/scripts.sql

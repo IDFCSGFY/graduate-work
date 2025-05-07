@@ -17,9 +17,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: password
-                  type: varchar(255)
-              - column:
                   name: first_name
                   type: varchar(100)
               - column:
@@ -29,8 +26,8 @@ databaseChangeLog:
                   name: phone
                   type: varchar(20)
               - column:
-                  name: image
-                  type: varchar(255)
-              - column:
                   name: role
                   type: varchar(20)
+              - column:
+                  name: image
+                  type: varchar(255)

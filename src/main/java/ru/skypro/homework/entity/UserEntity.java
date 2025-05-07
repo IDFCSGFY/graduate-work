@@ -1,10 +1,13 @@
 package ru.skypro.homework.entity;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.skypro.homework.dto.Role;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,8 +20,6 @@ public class UserEntity {
 
     @Column(nullable = false, unique = true)
     private String username;
-
-    private String password;
 
     @Column(name = "first_name")
     private String firstName;
@@ -36,15 +37,12 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(Integer id, String username, String password, String firstName, String lastName, String phone, Role role, String image) {
-        this.id = id;
+    public UserEntity(String username, String firstName, String lastName, String phone, Role role) {
         this.username = username;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.role = role;
-        this.image = image;
     }
 
     public Integer getId() {
@@ -61,14 +59,6 @@ public class UserEntity {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirstName() {

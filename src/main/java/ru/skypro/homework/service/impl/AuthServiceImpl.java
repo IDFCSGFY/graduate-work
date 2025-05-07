@@ -15,11 +15,14 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserDetailsManager manager;
     private final PasswordEncoder encoder;
+    private final UserProfileService profileService;
 
     public AuthServiceImpl(UserDetailsManager manager,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           UserProfileService profileService) {
         this.manager = manager;
         this.encoder = passwordEncoder;
+        this.profileService = profileService;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
                         .username(register.getUsername())
                         .roles(register.getRole().name())
                         .build());
+        profileService.createUser(register);
         return true;
     }
-
 }
