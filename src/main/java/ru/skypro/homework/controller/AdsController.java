@@ -11,10 +11,6 @@ import ru.skypro.homework.dto.CreateOrUpdateAd;
 import ru.skypro.homework.dto.ExtendedAd;
 import ru.skypro.homework.service.impl.AdService;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.io.BufferedOutputStream;
-import java.io.OutputStream;
-
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequestMapping("/ads")
@@ -38,7 +34,7 @@ public class AdsController {
 
     @GetMapping("{id}")
     public ResponseEntity<ExtendedAd> findAdById(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.findAdById(id));
+        return ResponseEntity.ok(service.findExtendedAdById(id));
     }
 
     @DeleteMapping("{id}")

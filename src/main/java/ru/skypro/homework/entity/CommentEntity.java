@@ -30,8 +30,7 @@ public class CommentEntity {
     public CommentEntity() {
     }
 
-    public CommentEntity(Integer id, String text, Instant createdAt, UserEntity author, AdEntity ad) {
-        this.id = id;
+    public CommentEntity(String text, Instant createdAt, UserEntity author, AdEntity ad) {
         this.text = text;
         this.createdAt = createdAt;
         this.author = author;

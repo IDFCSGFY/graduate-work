@@ -1,8 +1,6 @@
 package ru.skypro.homework.service.impl;
 
-import liquibase.pro.packaged.A;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Service;
@@ -16,7 +14,6 @@ import ru.skypro.homework.mapper.AdMapperImpl;
 import ru.skypro.homework.repository.AdRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,7 +40,12 @@ public class AdService {
         return this.adsFiller(entityList);
     }
 
-    public ExtendedAd findAdById(Integer id) {
+    public AdEntity findAdById(Integer id) {
+        adValidationCheck(id);
+        return repository.findById(id).get();
+    }
+
+    public ExtendedAd findExtendedAdById(Integer id) {
         this.adValidationCheck(id);
         AdEntity adEntity = repository.findById(id).get();
         UserEntity userEntity = userProfileService.findUserByUsername(adEntity.getAuthor().getUsername());
