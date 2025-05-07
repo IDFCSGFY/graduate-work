@@ -28,8 +28,8 @@ public class AdsController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Ad> createAd(@RequestBody Ad ad, @RequestParam MultipartFile image) {
-        return ResponseEntity.status(201).body(ad);
+    public ResponseEntity<Ad> createAd(Authentication authentication, @RequestBody Ad ad, @RequestParam MultipartFile image) {
+        return ResponseEntity.status(201).body(service.createAd(authentication, ad, image));
     }
 
     @GetMapping("{id}")
@@ -54,7 +54,7 @@ public class AdsController {
     }
 
     @PatchMapping(value = "{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<byte[]> updateImageOfAdById(@PathVariable Integer id, @RequestParam MultipartFile image) {
-        return ResponseEntity.ok(new byte[0]);
+    public ResponseEntity<byte[]> updateImageOfAdById(Authentication authentication, @PathVariable Integer id, @RequestParam MultipartFile image) {
+        return ResponseEntity.ok(service.updateAdImage(authentication, id, image));
     }
 }

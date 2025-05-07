@@ -1,9 +1,11 @@
 package ru.skypro.homework.service.impl;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.Ad;
 import ru.skypro.homework.dto.Ads;
 import ru.skypro.homework.dto.CreateOrUpdateAd;
@@ -13,11 +15,19 @@ import ru.skypro.homework.entity.UserEntity;
 import ru.skypro.homework.mapper.AdMapperImpl;
 import ru.skypro.homework.repository.AdRepository;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.nio.file.StandardOpenOption.CREATE_NEW;
+
 @Service
 public class AdService {
+
+    @Value("${avatar.img.dir.path}")
+    String imgDirPath;
 
     private final AdRepository repository;
     private final UserProfileService userProfileService;
@@ -38,6 +48,23 @@ public class AdService {
     public Ads findAllAds() {
         List<AdEntity> entityList = repository.findAll();
         return this.adsFiller(entityList);
+    }
+
+    public Ad createAd(Authentication authentication, Ad ad, MultipartFile image) {
+        AdEntity entity = mapper.toEntity(ad);
+        entity.setId(0);
+        entity.setAuthor(userProfileService.findUserByUsername(authentication.getName()));
+        String imgName = image.getOriginalFilename();
+        Path path = Path.of(imgDirPath, entity.getAuthor().getId() + "." + imgName.substring(imgName.indexOf(".") + 1));
+        try {
+            Files.createDirectories(path.getParent());
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        saveFile(image, path);
+        entity.setImage(path.toString());
+        return mapper.toDto(repository.save(entity));
     }
 
     public AdEntity findAdById(Integer id) {
@@ -85,11 +112,39 @@ public class AdService {
         return this.adsFiller(entityList);
     }
 
+    public byte[] updateAdImage(Authentication authentication, Integer id, MultipartFile image) {
+        this.adValidationCheck(id);
+        this.initiatorValidationCheck(authentication, id);
+        String pathStr = userProfileService.findUserByUsername(authentication.getName()).getImage();
+        Path path = Path.of(pathStr);
+        try {
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        saveFile(image, path);
+        return null;
+    }
+
     private Ads adsFiller(List<AdEntity> entityList) {
         Ads ads = new Ads();
         ads.setResults(entityList.stream().map(mapper::toDto).collect(Collectors.toList()));
         ads.setCount(ads.getResults().size());
         return ads;
+    }
+
+    private byte[] saveFile(MultipartFile image, Path path) {
+        try (InputStream is = image.getInputStream();
+             OutputStream os = Files.newOutputStream(path, CREATE_NEW);
+             BufferedInputStream bis = new BufferedInputStream(is, 1024);
+             BufferedOutputStream bos = new BufferedOutputStream(os, 1024);
+             ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            bis.transferTo(bos);
+            bis.transferTo(baos);
+            return baos.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void initiatorValidationCheck(Authentication authentication, Integer id) {

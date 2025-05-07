@@ -40,16 +40,8 @@ public class UserController {
     }
 
     @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Void> updateAuthorizedUserAvatar(@RequestParam MultipartFile avatar) {
+    public ResponseEntity<Void> updateAuthorizedUserAvatar(Authentication authentication, @RequestParam MultipartFile image) {
+        service.uploadImage(authentication, image);
         return ResponseEntity.ok().build();
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
     }
 }
