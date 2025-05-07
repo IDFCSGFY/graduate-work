@@ -13,11 +13,11 @@ import ru.skypro.homework.service.AuthService;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private final UserDetailsManager manager;
+    private final JdbcUserDetailsManager manager;
     private final PasswordEncoder encoder;
     private final UserProfileService profileService;
 
-    public AuthServiceImpl(UserDetailsManager manager,
+    public AuthServiceImpl(JdbcUserDetailsManager manager,
                            PasswordEncoder passwordEncoder,
                            UserProfileService profileService) {
         this.manager = manager;

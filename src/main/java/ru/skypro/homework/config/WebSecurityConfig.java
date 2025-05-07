@@ -42,7 +42,7 @@ public class WebSecurityConfig {
 //    }
 
     @Bean
-    public UserDetailsManager userDetailsManager(DataSource dataSource, JdbcTemplate jdbcTemplate) {
+    public JdbcUserDetailsManager userDetailsManager(DataSource dataSource, JdbcTemplate jdbcTemplate) {
         JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
         manager.setJdbcTemplate(jdbcTemplate);
         manager.setCreateUserSql("insert into security (username, password, enabled) values (?,?,?)");
