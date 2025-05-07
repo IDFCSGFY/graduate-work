@@ -51,9 +51,13 @@ public class UserProfileService {
         return true;
     }
 
-    public User findUserByUsername(String username) {
+    public User getUserDTOByUsername(String username) {
         UserEntity entity = repository.findByUsername(username).get();
         return mapper.toDto(entity);
+    }
+
+    public UserEntity findUserByUsername(String username) {
+        return repository.findByUsername(username).get();
     }
 
     public UpdateUser updateUserByUsername(String username, UpdateUser user) {

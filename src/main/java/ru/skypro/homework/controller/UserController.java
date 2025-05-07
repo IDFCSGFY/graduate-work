@@ -31,7 +31,7 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<User> findAuthenticatedUser(Authentication authentication) {
-        return ResponseEntity.ok(service.findUserByUsername(authentication.getName()));
+        return ResponseEntity.ok(service.getUserDTOByUsername(authentication.getName()));
     }
 
     @PatchMapping("/me")

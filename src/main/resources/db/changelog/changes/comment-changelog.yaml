@@ -20,12 +20,6 @@ databaseChangeLog:
               - column:
                   name: author_id
                   type: integer
-                  constraints:
-                    foreignKeyName: fk_comment_user
-                    references: users(id)
               - column:
                   name: ad_id
                   type: integer
-                  constraints:
-                    foreignKeyName: fk_comment_ad
-                    references: ads(id)

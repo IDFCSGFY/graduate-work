@@ -19,7 +19,15 @@ public class Ads {
         return count;
     }
 
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     public List<Ad> getResults() {
         return results;
+    }
+
+    public void setResults(List<Ad> results) {
+        this.results = results;
     }
 }
