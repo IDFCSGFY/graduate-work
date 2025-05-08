@@ -1,5 +1,10 @@
 package ru.skypro.homework.dto;
 
+/**
+ * DTO-класс для вывода полной информации об объявлении.
+ *
+ * @see Ad для DTO-класса объявления.
+ */
 public class ExtendedAd {
 
     private Integer pk;

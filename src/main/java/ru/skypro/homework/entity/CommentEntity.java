@@ -5,6 +5,12 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.Instant;
 
+/**
+ * Entity-класс для комментария.
+ *
+ * @see ru.skypro.homework.repository.CommentRepository для репозитория.
+ * @see ru.skypro.homework.dto.Comment для соответствующего DTO-класса.
+ */
 @Data
 @Entity
 @Table(name = "comments")

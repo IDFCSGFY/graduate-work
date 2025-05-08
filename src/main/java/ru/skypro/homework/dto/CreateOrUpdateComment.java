@@ -1,5 +1,10 @@
 package ru.skypro.homework.dto;
 
+/**
+ * DTO-класс для редактирования комментария.
+ *
+ * @see Comment для DTO-класса единичного комментария.
+ */
 public class CreateOrUpdateComment {
 
     private String text;
