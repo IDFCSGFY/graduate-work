@@ -1,5 +1,8 @@
 package ru.skypro.homework.dto;
 
+/**
+ * DTO-класс для обновления персональной информации аутентифицированным пользователем.
+ */
 public class UpdateUser {
 
     private String firstName;

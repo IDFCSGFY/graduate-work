@@ -2,6 +2,11 @@ package ru.skypro.homework.dto;
 
 import java.util.List;
 
+/**
+ * DTO-класс для списка комментариев. Используется для вывода.
+ *
+ * @see Comment для DTO-класса единичного комментария.
+ */
 public class Comments {
 
     private Integer count;

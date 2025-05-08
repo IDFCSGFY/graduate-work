@@ -5,6 +5,12 @@ import ru.skypro.homework.dto.Role;
 
 import javax.persistence.*;
 
+/**
+ * Entity-класс для пользователя.
+ *
+ * @see ru.skypro.homework.repository.UserRepository для репозитория.
+ * @see ru.skypro.homework.dto.User для соответствующего DTO-класса.
+ */
 @Data
 @Entity
 @Table(name = "users")

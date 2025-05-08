@@ -20,6 +20,13 @@ import java.nio.file.Path;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
+/**
+ * Сервис-класс для менеджмента информации профиля пользователей.
+ * Контекстуальные классы:
+ *
+ * @see User
+ * @see UserEntity
+ */
 @Service
 public class UserProfileService {
 
@@ -41,10 +48,25 @@ public class UserProfileService {
         this.mapper = mapper;
     }
 
+    /**
+     * Сохраняет пользователя в БД по объекту UserEntity.
+     *
+     * @param user объект UserEntity для сохранения.
+     * @return {@code UserEntity} – сохранённый в БД пользователь.
+     * @see UserEntity
+     */
     public UserEntity createUser(UserEntity user) {
         return repository.save(user);
     }
 
+    /**
+     * Сохраняет пользователя в БД по объекту Register.
+     *
+     * @param register DTO-объект хранящий информацию о пользователе для сохранения.
+     * @return {@code UserEntity} – сохранённый в БД пользователь.
+     * @see UserEntity
+     * @see Register
+     */
     public UserEntity createUser(Register register) {
         return this.createUser(new UserEntity(
                 register.getUsername(),
@@ -54,6 +76,13 @@ public class UserProfileService {
                 register.getRole()));
     }
 
+    /**
+     * Меняет пароль аутентифицированного пользователя на указанный новый.
+     *
+     * @param newPassword DTO-объект хранящий текущий и новый пароль.
+     * @return {@code boolean} – успешность операции по смене пароля.
+     * @see NewPassword
+     */
     public boolean changePassword(NewPassword newPassword) {
         try {
             manager.changePassword(newPassword.getCurrentPassword(), encoder.encode(newPassword.getCurrentPassword()));
@@ -63,15 +92,37 @@ public class UserProfileService {
         return true;
     }
 
+    /**
+     * Возвращает из БД мапнутый в DTO объект пользователя User по имени пользователя.
+     *
+     * @param username юзернейм пользователя для поиска.
+     * @return {@code User} – DTO-объект с информацией о пользователе.
+     * @see User
+     */
     public User getUserDTOByUsername(String username) {
         UserEntity entity = repository.findByUsername(username).get();
         return mapper.toDto(entity);
     }
 
+    /**
+     * Возвращает из БД объект пользователя UserEntity по имени пользователя.
+     *
+     * @param username юзернейм пользователя для поиска.
+     * @return {@code UserEntity} – DTO-объект с информацией о пользователе.
+     * @see UserEntity
+     */
     public UserEntity findUserByUsername(String username) {
         return repository.findByUsername(username).get();
     }
 
+    /**
+     * Обновляет персональную информацию об аутентифицированном пользователе на указанную новую.
+     *
+     * @param username юзернейм аутентифицированного пользователя.
+     * @param user     актуальная информация о пользователе.
+     * @return {@code UpdateUser} – DTO-объект из которого была взята актуальная информация.
+     * @see UpdateUser
+     */
     public UpdateUser updateUserByUsername(String username, UpdateUser user) {
         UserEntity entity = repository.findByUsername(username).get();
         entity.setFirstName(user.getFirstName());
@@ -81,6 +132,12 @@ public class UserProfileService {
         return user;
     }
 
+    /**
+     * Загрузка аватара пользователя.
+     *
+     * @param authentication информация об аутентифицированном пользователе для запроса в БД.
+     * @param image          изображение нового аватара пользователя.
+     */
     public void uploadImage(Authentication authentication, MultipartFile image) {
         UserEntity user = repository.findByUsername(authentication.getName()).get();
         String imageName = image.getOriginalFilename();

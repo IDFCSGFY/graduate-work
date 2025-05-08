@@ -4,6 +4,12 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Entity-класс для объявления.
+ *
+ * @see ru.skypro.homework.repository.AdRepository для репозитория.
+ * @see ru.skypro.homework.dto.Ad для соответствующего DTO-класса.
+ */
 @Data
 @Entity
 @Table(name = "ads")

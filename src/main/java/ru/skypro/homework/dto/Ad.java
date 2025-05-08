@@ -1,5 +1,10 @@
 package ru.skypro.homework.dto;
 
+/**
+ * DTO-класс для объявления.
+ *
+ * @see ru.skypro.homework.entity.AdEntity для соответствующего entity-класса.
+ */
 public class Ad {
 
     private Integer author;

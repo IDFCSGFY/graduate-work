@@ -2,6 +2,9 @@ package ru.skypro.homework.dto;
 
 import lombok.Data;
 
+/**
+ * DTO-класс для получения информации для аутентификации пользователя на странице для логина.
+ */
 @Data
 public class Login {
 

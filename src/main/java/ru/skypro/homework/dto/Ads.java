@@ -2,6 +2,11 @@ package ru.skypro.homework.dto;
 
 import java.util.List;
 
+/**
+ * DTO-класс для списка объявлений. Используется для вывода.
+ *
+ * @see Ad для DTO-класса единичного объявления.
+ */
 public class Ads {
 
     private Integer count;

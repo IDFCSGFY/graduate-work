@@ -1,6 +1,10 @@
 package ru.skypro.homework.dto;
 
-
+/**
+ * DTO-класс для комментариев под объявлениями.
+ *
+ * @see ru.skypro.homework.entity.CommentEntity для соответствующего entity-класса.
+ */
 public class User {
 
     private Integer id;

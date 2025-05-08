@@ -6,10 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.Ad;
-import ru.skypro.homework.dto.Ads;
-import ru.skypro.homework.dto.CreateOrUpdateAd;
-import ru.skypro.homework.dto.ExtendedAd;
+import ru.skypro.homework.dto.*;
 import ru.skypro.homework.entity.AdEntity;
 import ru.skypro.homework.entity.UserEntity;
 import ru.skypro.homework.mapper.AdMapperImpl;
@@ -23,6 +20,13 @@ import java.util.stream.Collectors;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
+/**
+ * Сервис-класс для менеджмента объявлений.
+ * Контекстуальные классы:
+ *
+ * @see Ad
+ * @see AdEntity
+ */
 @Service
 public class AdService {
 
@@ -44,12 +48,26 @@ public class AdService {
         this.mapper = mapper;
     }
 
-
+    /**
+     * Возвращает полный список всех объявлений.
+     *
+     * @return {@code Ads} – DTO-объект, содержащий список полученных объявлений.
+     * @see Ads
+     */
     public Ads findAllAds() {
         List<AdEntity> entityList = repository.findAll();
         return this.adsFiller(entityList);
     }
 
+    /**
+     * Сохраняет новое объявление в БД.
+     *
+     * @param authentication информация об аутентифицированном пользователе.
+     * @param ad
+     * @param image
+     * @return {@code Ad} – DTO-объект созданного объявления.
+     * @see Ad
+     */
     public Ad createAd(Authentication authentication, Ad ad, MultipartFile image) {
         AdEntity entity = mapper.toEntity(ad);
         entity.setId(0);
@@ -67,11 +85,25 @@ public class AdService {
         return mapper.toDto(repository.save(entity));
     }
 
+    /**
+     * Возвращает объявление по указанному {@code id}.
+     *
+     * @param id идентификатор объявления.
+     * @return {@code AdEntity} – entity-объект найденного объявления.
+     * @see AdEntity
+     */
     public AdEntity findAdById(Integer id) {
         adValidationCheck(id);
         return repository.findById(id).get();
     }
 
+    /**
+     * Возвращает полную информацию об объявлении по указанному {@code id}.
+     *
+     * @param id идентификатор объявления.
+     * @return {@code ExtendedAd} – DTO-объект, содержащий полную информацию о найденном объявлении.
+     * @see ExtendedAd
+     */
     public ExtendedAd findExtendedAdById(Integer id) {
         this.adValidationCheck(id);
         AdEntity adEntity = repository.findById(id).get();
@@ -89,12 +121,28 @@ public class AdService {
         );
     }
 
+    /**
+     * Удаляет объявление по указанному {@code id}.
+     *
+     * @param authentication информация об аутентифицированном пользователе.
+     * @param id             идентификатор объявления.
+     */
     public void deleteAdById(Authentication authentication, Integer id) {
         this.adValidationCheck(id);
         this.initiatorValidationCheck(authentication, id);
         repository.deleteById(id);
     }
 
+    /**
+     * Обновляет информацию об объявлении по указанному {@code id}.
+     *
+     * @param authentication информация об аутентифицированном пользователе.
+     * @param id             идентификатор объявления.
+     * @param ad             новая информация объявления.
+     * @return {@code Ad} – DTO-объект, содержащий обновлённую информацию объявления.
+     * @see Ad
+     * @see CreateOrUpdateAd
+     */
     public Ad updateAdById(Authentication authentication, Integer id, CreateOrUpdateAd ad) {
         this.adValidationCheck(id);
         this.initiatorValidationCheck(authentication, id);
@@ -106,12 +154,27 @@ public class AdService {
         return mapper.toDto(repository.save(entity));
     }
 
+    /**
+     * Возвращает полный список объявлений авторства аутентифицированного пользователя.
+     *
+     * @param authentication информация об аутентифицированном пользователе.
+     * @return {@code Ads} – DTO-объект, содержащий список полученных объявлений.
+     * @see Ads
+     */
     public Ads findAllAdsByUser(Authentication authentication) {
         Integer userId = userProfileService.findUserByUsername(authentication.getName()).getId();
         List<AdEntity> entityList = repository.findAllByAuthorId(userId);
         return this.adsFiller(entityList);
     }
 
+    /**
+     * Обновляет изображение объявления.
+     *
+     * @param authentication информация об аутентифицированном пользователе.
+     * @param id             идентификатор объявления.
+     * @param image          новое изображение объявления.
+     * @return {@code byte[]} – сохранённое изображение в строке байтов.
+     */
     public byte[] updateAdImage(Authentication authentication, Integer id, MultipartFile image) {
         this.adValidationCheck(id);
         this.initiatorValidationCheck(authentication, id);
@@ -122,8 +185,7 @@ public class AdService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        saveFile(image, path);
-        return null;
+        return saveFile(image, path);
     }
 
     private Ads adsFiller(List<AdEntity> entityList) {

@@ -1,5 +1,10 @@
 package ru.skypro.homework.dto;
 
+/**
+ * DTO-класс для редактирования объявления.
+ *
+ * @see Ad для DTO-класса единичного объявления.
+ */
 public class CreateOrUpdateAd {
 
     private String title;
