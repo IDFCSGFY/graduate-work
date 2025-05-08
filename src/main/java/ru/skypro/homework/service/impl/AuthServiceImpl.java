@@ -3,7 +3,7 @@ package ru.skypro.homework.service.impl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.Register;
 import ru.skypro.homework.service.AuthService;
@@ -11,13 +11,16 @@ import ru.skypro.homework.service.AuthService;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private final UserDetailsManager manager;
+    private final JdbcUserDetailsManager manager;
     private final PasswordEncoder encoder;
+    private final UserProfileService profileService;
 
-    public AuthServiceImpl(UserDetailsManager manager,
-                           PasswordEncoder passwordEncoder) {
+    public AuthServiceImpl(JdbcUserDetailsManager manager,
+                           PasswordEncoder passwordEncoder,
+                           UserProfileService profileService) {
         this.manager = manager;
         this.encoder = passwordEncoder;
+        this.profileService = profileService;
     }
 
     @Override
@@ -41,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
                         .username(register.getUsername())
                         .roles(register.getRole().name())
                         .build());
+        profileService.createUser(register);
         return true;
     }
-
 }

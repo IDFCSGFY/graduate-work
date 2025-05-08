@@ -11,7 +11,18 @@ public class User {
     private Role role;
     private String image;
 
-    public User() {}
+    public User() {
+    }
+
+    public User(Integer id, String email, String firstName, String lastName, String phone, Role role, String image) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.role = role;
+        this.image = image;
+    }
 
     public Integer getId() {
         return id;
